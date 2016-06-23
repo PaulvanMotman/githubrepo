@@ -15,5 +15,16 @@
   "bugs": {
     "url": "https://github.com/PaulvanMotman/githubrepo/issues"
   },
-  "homepage": "https://github.com/PaulvanMotman/githubrepo#readme"
+  "homepage": "https://github.com/PaulvanMotman/githubrepo#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "express-partials": "^0.3.0",
+    "express-session": "^1.13.0",
+    "method-override": "^2.3.6",
+    "passport": "^0.3.2",
+    "passport-github2": "^0.1.10",
+    "pug": "^2.0.0-beta3",
+    "util": "^0.10.3"
+  }
 }
