@@ -1,0 +1,19 @@
+{
+  "name": "githubrepo",
+  "version": "1.0.0",
+  "description": "An app that lets you log in through github and shows you your repo's",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaulvanMotman/githubrepo.git"
+  },
+  "author": "Paul van Motman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PaulvanMotman/githubrepo/issues"
+  },
+  "homepage": "https://github.com/PaulvanMotman/githubrepo#readme"
+}
