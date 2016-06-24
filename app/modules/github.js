@@ -1,23 +1,42 @@
 var express = require('express');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github2').Strategy;
-// var db = require('./database');
+var db = require('./database');
 
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/github/cb"
+    callbackURL: "http://localhost:3000/auth/github/cb",
+    profileFields: ['repo']
   },
   function(accessToken, refreshToken, profile, done) {
-    // asynchronous verification, for effect...
-    process.nextTick(function () {
-      
-      // To keep the example simple, the user's GitHub profile is returned to
-      // represent the logged-in user.  In a typical application, you would want
-      // to associate the GitHub account with a user record in your database,
-      // and return that user instead.
-      return done(null, profile);
-    });
+    console.log(profile)
+    profile.accessToken = accessToken;
+    findOrCreateUser = function(){
+      db.user.find({ where: {'ghid' :  profile.id }}).then(function(user) {
+        // already exists
+        if (user) {
+          console.log('User already exists with this username ');
+          return;
+        } else {
+          // if there is no user with that facebook id
+          // create the user
+          console.log('Cant find user, now I create a new user')
+
+          // save the user
+          db.user.create({
+            'ghid': profile.id,
+            'username': profile.username,
+            'reposurl': profile._json.repos_url
+          }).then(function(user) {
+            console.log('User Registration successful');
+            return;    
+          });
+         }
+      });
+    };
+    process.nextTick(findOrCreateUser);
+    return done(null, profile);
   }
 ));
 

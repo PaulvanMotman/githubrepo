@@ -1,6 +1,7 @@
 const express = require('express');
 var router = express.Router();
-// var db = require('../app/models/database');
+var db = require('../app/modules/database');
+var request = require('request');
 
 function ensureAuthenticated(req, res, next) {
   // if user is authenticated in the session, call the next() to call the next request handler 
@@ -13,38 +14,51 @@ function ensureAuthenticated(req, res, next) {
 
 module.exports = function(passport){
 
+//HOME PAGE
   router.get('/', function(req, res){
     res.render('index');
     console.log("this works")
   });
 
+
+//YOUR ACCOUNT PAGE WITH OVERVIEW OF REPOS
   router.get('/account', ensureAuthenticated, function(req, res){
-    res.send(req.user)
-    // res.render('account', { user: req.user });
+    db.user.findOne({
+      where: {
+        ghid: req.user.id 
+      }
+    }).then(function(user){
+      var options = {
+        url: user.reposurl,
+        headers: {
+          'User-Agent': 'request'
+        }
+      }
+      request(options, function (error, response, body) {
+        if (!error) {
+          console.log("it worked!") 
+          res.send(body)
+        } else {
+          res.send(error)
+        }
+      })
+    })
   });
 
 
-  // GET /auth/github
-  //   Use passport.authenticate() as route middleware to authenticate the
-  //   request.  The first step in GitHub authentication will involve redirecting
-  //   the user to github.com.  After authorization, GitHub will redirect the user
-  //   back to this application at /auth/github/callback
+//LOGIN GH
   router.get('/auth/github',
-    passport.authenticate('github', { scope: [ 'user:email' ] }),
+    passport.authenticate('github', { scope: [ 'user:email'] }),
     function(req, res){
+      console.log(req)
       // The request will be redirected to GitHub for authentication, so this
       // function will not be called.
     });
 
-  // GET /auth/github/callback
-  //   Use passport.authenticate() as route middleware to authenticate the
-  //   request.  If authentication fails, the user will be redirected back to the
-  //   login page.  Otherwise, the primary route function will be called,
-  //   which, in this example, will redirect the user to the home page.
+// RETURN AFTER LOGIN GH
   router.get('/auth/github/cb', 
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
-      console.log(req)
       res.redirect('/account');
     });
 

@@ -3,7 +3,7 @@ var GitHubStrategy = require('passport-github2').Strategy;
 var app = require('./app/modules/express');
 var passport = require('passport');
 var express = require('express')
-
+var pg = require('pg')
 ///static folders
 app.use(express.static('./public'));
 
