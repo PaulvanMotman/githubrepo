@@ -1,13 +1,13 @@
 var util = require('util');
 var GitHubStrategy = require('passport-github2').Strategy;
-var app = require('./app/models/express');
+var app = require('./app/modules/express');
 var passport = require('passport');
 var express = require('express')
 
 ///static folders
 app.use(express.static('./public'));
 
-var github = require('./app/models/github')
+var github = require('./app/modules/github')
 // Initialize Passport!  Also use passport.session() middleware, to support
 
 // Initialize Router
