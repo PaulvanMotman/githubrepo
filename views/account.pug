@@ -13,4 +13,12 @@ html
 		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
 		//- CUSTOM.JS
 	body
-		h1 it worked
+		div.container
+			div.row
+				div.col-sm-6.col-md-6.col-md-offset-0
+					h1.text-center.login-title Here you can see your Github repositories!
+					div.signup-wall
+						each repo in repos
+							div.signup-wall
+								a(href='https://github.com/' + user.username + '/' + repo.name) #{repo.name} </br>
+							

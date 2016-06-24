@@ -28,6 +28,7 @@ module.exports = function(passport){
         ghid: req.user.id 
       }
     }).then(function(user){
+      var user = user
       var options = {
         url: user.reposurl,
         headers: {
@@ -37,7 +38,7 @@ module.exports = function(passport){
       request(options, function (error, response, body) {
         if (!error) {
           console.log("it worked!") 
-          res.send(body)
+          res.render('account', { repos: JSON.parse(body), user: user });
         } else {
           res.send(error)
         }
@@ -50,9 +51,6 @@ module.exports = function(passport){
   router.get('/auth/github',
     passport.authenticate('github', { scope: [ 'user:email'] }),
     function(req, res){
-      console.log(req)
-      // The request will be redirected to GitHub for authentication, so this
-      // function will not be called.
     });
 
 // RETURN AFTER LOGIN GH
