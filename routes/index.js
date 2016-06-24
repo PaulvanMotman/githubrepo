@@ -14,16 +14,15 @@ function ensureAuthenticated(req, res, next) {
 module.exports = function(passport){
 
   router.get('/', function(req, res){
-    res.render('index', { user: req.user });
+    res.render('index');
+    console.log("this works")
   });
 
   router.get('/account', ensureAuthenticated, function(req, res){
-    res.render('account', { user: req.user });
+    res.send(req.user)
+    // res.render('account', { user: req.user });
   });
 
-  router.get('/login', function(req, res){
-    res.render('login', { user: req.user });
-  });
 
   // GET /auth/github
   //   Use passport.authenticate() as route middleware to authenticate the
@@ -42,10 +41,11 @@ module.exports = function(passport){
   //   request.  If authentication fails, the user will be redirected back to the
   //   login page.  Otherwise, the primary route function will be called,
   //   which, in this example, will redirect the user to the home page.
-  router.get('/auth/github/callback', 
+  router.get('/auth/github/cb', 
     passport.authenticate('github', { failureRedirect: '/login' }),
     function(req, res) {
-      res.redirect('/');
+      console.log(req)
+      res.redirect('/account');
     });
 
   router.get('/logout', function(req, res){
