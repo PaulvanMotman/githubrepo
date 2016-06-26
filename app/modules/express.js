@@ -1,3 +1,4 @@
+// requiring npm modules
 var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
@@ -22,7 +23,7 @@ app.use(session({
 	saveUninitialized: false
 }));
 
-// persistent login sessions (recommended).
+// login sessions.
 app.use(passport.initialize());
 app.use(passport.session());
 

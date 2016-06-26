@@ -32,7 +32,7 @@ db.user.hasMany(db.repo);
 db.repo.belongsTo(db.user);
 
 // Synchronise with database
-db.conn.sync( {'force': true} ).then( 
+db.conn.sync( {'force': false} ).then( 
 	() => { 
 		console.log ( 'Sync succeeded' )
 	},

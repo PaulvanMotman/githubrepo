@@ -1,3 +1,4 @@
+// declaring dependencies
 var express = require('express');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github2').Strategy;
@@ -19,7 +20,7 @@ passport.use(new GitHubStrategy({
           console.log('User already exists with this username ');
           return;
         } else {
-          // if there is no user with that facebook id
+          // if there is no user with that github id
           // create the user
           console.log('Cant find user, now I create a new user')
 

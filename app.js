@@ -1,14 +1,17 @@
+/// NPM modules
 var util = require('util');
 var GitHubStrategy = require('passport-github2').Strategy;
 var app = require('./app/modules/express');
 var passport = require('passport');
 var express = require('express')
 var pg = require('pg')
+
 ///static folders
 app.use(express.static('./public'));
 
+// Initialize github API
 var github = require('./app/modules/github')
-// Initialize Passport!  Also use passport.session() middleware, to support
+
 
 // Initialize Router
 var routes = require('./routes/index')(passport);
@@ -24,5 +27,5 @@ app.use(function(req, res, next) {
 
 /// This part tells the app to listen to a server
 var server = app.listen(3000, function (){
-	console.log ('Blog Application listening on: ' + server.address().port)
+	console.log ('Application listening on: ' + server.address().port)
 });

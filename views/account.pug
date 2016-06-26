@@ -2,7 +2,6 @@ doctype html
 html
 	head
 		title= title
-		link(rel='stylesheet', href='/css/style.css')
 		//- Bootstrap
 		link(rel='stylesheet', href='http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
 		//- fontAwesome part of bootstrap icons and fonts
@@ -11,14 +10,16 @@ html
 		//- jQuery
 		script(src='https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js')
 		script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js')
-		//- CUSTOM.JS
+		//- CUSTOM.css
+		link(rel='stylesheet', href='/css/style.css')
 	body
 		div.container
 			div.row
-				div.col-sm-6.col-md-6.col-md-offset-0
-					h1.text-center.login-title Here you can see your Github repositories!
-					div.signup-wall
-						each repo in repos
-							div.signup-wall
-								a(href='https://github.com/' + user.username + '/' + repo.name) #{repo.name} </br>
+				div.col-sm-12.col-md-12.col-md-offset-0
+					h1.text-center.login-title Here you can see your Github repositories:
+					//- Looping through the repositories
+					each repo in repos
+						div.signup-wall
+							//- Creating a link to each repositorie
+							a(href='https://github.com/' + user.username + '/' + repo.name) #{repo.name}
 							
